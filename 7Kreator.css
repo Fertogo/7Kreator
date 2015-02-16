@@ -1,0 +1,20 @@
+#c{
+    background-color: #eaedf0;
+    /*transform: scale(.5);*/
+}
+
+#drop_zone{
+ width: 170%;
+ margin-left: -30%;
+ background-color: rgba(0,0,0,.8);
+ padding: 10px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #eee;
+}

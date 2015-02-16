@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="7280" height="1920"></canvas>
+    <script>
+
+      /**
+      * Simple 7K Image creator.
+      * Just provide an array (sources) with links to different images and a template will automatically be built!
+      */
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      var screenData = {
+        1: {
+          'x': 0,
+          'y': 67,
+          'width': 500,
+          'height': 893
+        },
+        2: {
+          'x': 580,
+          'y': 71,
+          'width': 700,
+          'height': 1245
+        },
+        3: {
+          'x': 1376,
+          'y': 466,
+          'width': 1511,
+          'height': 850
+        },
+        4: {
+          'x': 45,
+          'y': 1420,
+          'width': 893,
+          'height': 500
+        },
+        5: {
+          'x': 1029,
+          'y': 1420,
+          'width': 893,
+          'height': 500
+        },
+        6: {
+
+          'x': 2001,
+          'y': 1420,
+          'width': 893,
+          'height': 500
+        },
+        7: {
+
+          'x': 2995,
+          'y': 0,
+          'width': 1080,
+          'height': 1920
+        },
+        8: {
+
+          'x': 4181,
+          'y': 4,
+          'width': 700,
+          'height': 1245
+        },
+        9: {
+
+          'x': 4978,
+          'y': 675,
+          'width': 700,
+          'height': 1245
+        },
+        10: {
+
+          'x': 5777,
+          'y': 91,
+          'width': 500,
+          'height': 893
+        },
+        11: {
+          'x': 6375,
+          'y': 93,
+          'width': 893,
+          'height': 500
+        },
+        12: {
+          'x': 5769,
+          'y': 1067,
+          'width': 1511,
+          'height': 850
+        }
+      }
+
+
+      sources = ['http://dummyimage.com/1/fff000/fff000', 'http://dummyimage.com/1/ff0000/000000','http://dummyimage.com/1/fff000/fff000', 'http://dummyimage.com/1/ff0000/000000','http://dummyimage.com/1/ff0000/000000','http://dummyimage.com/1/fff000/fff000','http://dummyimage.com/1/ff0000/000000','http://dummyimage.com/1/fff000/fff000','http://dummyimage.com/1/ff0000/000000','http://dummyimage.com/1/fff000/fff000','http://dummyimage.com/1/ff0000/000000','http://dummyimage.com/1/fff000/fff000']
+
+      // sources = ['','','','','','','','','','','',''].map(function(el){
+      //   return 'https://pbs.twimg.com/profile_images/529223941269630977/X7qzczoQ.jpeg'
+      // })
+      console.log(sources)
+
+      console.log(sources.length)
+      var addImages = function(index){
+        index = index || 0
+        var image = new Image();
+        console.log(index)
+        var currentScreen = screenData[parseInt(index)+1]
+
+
+        image.onload = function() {
+          console.log(currentScreen)
+         context.drawImage(this, currentScreen.x, currentScreen.y, currentScreen.width ,currentScreen.height)
+         if (index < sources.length -1) addImages(index+1)
+        };
+        image.src = sources[index];
+      }
+
+      addImages()
+
+
+    </script>
+  </body>
+</html>
