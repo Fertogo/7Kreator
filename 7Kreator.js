@@ -50,3 +50,26 @@ function downloadFabric(canvas,name){
 $("#submit").click(function(){
     downloadFabric(canvas,'test');
 });
+
+
+$("#back").click(sendToBack);
+$("#front").click(bringToFront);
+
+
+/*
+* Sends currently selected image object to the back
+*/
+function sendToBack(){
+  console.log("Send to Back")
+  image = canvas.getActiveObject();
+  if (image) canvas.sendToBack(image)
+}
+
+/*
+* Brings currently selected image object to the front
+*/
+function bringToFront(){
+  console.log("Bring To Front")
+  image = canvas.getActiveObject();
+  if (image) canvas.bringToFront(image)
+}

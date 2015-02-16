@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="http://simmons-dev.mit.edu/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="7Kreator.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -41,16 +42,29 @@
       </div>
     </nav>
 
+
     <div class="container">
+
+      <div id="context-menu">
+        <ul class="dropdown-menu" role="menu">
+            <li><a id="back" tabindex="-1">Send to back</a></li>
+            <li><a id="front" tabindex="-1">Bring to front</a></li>
+            <li><a id="copy" tabindex="-1">Copy</a></li>
+            <li><a id="paste" tabindex="-1">Paste</a></li>
+            <li><a tabindex="-1">Delete</a></li>
+        </ul>
+      </div>
+
       <div>
         <h1>7Kreator</h1>
         <p class="lead">Easily create images to be displayed on the 7K.   <button type="button" class="btn btn-lg btn-primary" id="submit">Download</button>  <br> </p>
       </div>
 
-      <div id="drop_zone">
+      <div id="drop_zone" data-toggle="context" >
         <!-- <canvas id="c" width="7280" height="1920"></canvas> -->
         <canvas id="c" width="1820" height="480"></canvas> <!-- Using smaller size (for now) for performance -->
       </div>
+
     </div><!-- /.container -->
 
     <footer class="footer">
@@ -68,7 +82,33 @@
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js'> </script>
 
+<script src='bootstrap-contextmenu.js'> </script>
+
 <script src='7Kreator.js'> </script>
+
+<script>
+//Right click Menu
+$('#drop_zone').contextmenu({
+  target: '#context-menu',
+  onItem: function (context, e) {
+    // switch($(e.target).text().toLowerCase()){
+    //   case "copy": console.log("COPY") break;
+
+
+
+    // }
+  }
+});
+
+/*
+* Sends currently selected image object to the back
+*/
+function back(){
+  console.log("hi")
+}
+
+
+</script>
 
 </html>
 
