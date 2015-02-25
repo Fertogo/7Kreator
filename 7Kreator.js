@@ -4,6 +4,15 @@ $(document).ready(function(){
   canvas.setOverlayImage('7kback.png', canvas.renderAll.bind(canvas));
 });
 
+currentX = 0; currentY = 0;
+xOffset = -50; yOffset = 220;
+
+// Keep track of cursor position
+$(document).mousemove(function (e) {
+    currentX = e.pageX;
+    currentY = e.pageY;
+});
+
 function handleFileSelect(evt) {
   evt.stopPropagation();
   evt.preventDefault();
@@ -15,6 +24,8 @@ function handleFileSelect(evt) {
   reader.onloadend = function () {
       console.log(reader.result)
       fabric.Image.fromURL(reader.result, function(oImg) {
+        oImg.setLeft(evt.pageX-xOffset);
+        oImg.setTop(evt.pageY-yOffset);
         canvas.add(oImg);
         canvas.sendBackwards(oImg);
       });
@@ -32,7 +43,7 @@ function handleDragOver(evt) {
   evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
 
-// Setup the dnd listeners.
+// Setup the drop listeners.
 var dropZone = document.getElementById('drop_zone');
 dropZone.addEventListener('dragover', handleDragOver, false);
 dropZone.addEventListener('drop', handleFileSelect, false);
@@ -44,17 +55,49 @@ function download(url,name){
 }
 function downloadFabric(canvas,name){
   //  convert the canvas to a data url and download it.
-  download(canvas.toDataURL({multiplier: 4}),name+'.png' );
+  download(canvas.toDataURL(/*{multiplier: 4}*/),name+'.png' );
 }
 
 $("#submit").click(function(){
     downloadFabric(canvas,'test');
 });
 
-
 $("#back").click(sendToBack);
 $("#front").click(bringToFront);
 $("#delete").click(deleteImage);
+$("#copy").click(copyImage);
+$("#paste").click(pasteImage);
+
+//Listen To keyDown events
+var canvasWrapper = document.getElementById('drop_zone');
+canvasWrapper.tabIndex = 1000;
+canvasWrapper.addEventListener("keydown", processKeyDown, false);
+
+/*
+* Cntl-C: Copy the image
+* Ctrk-V: Paste the image
+* Ctrl-X: Cut (copy + delete) the Image
+* Backspace or Del: Delete the image
+*/
+function processKeyDown(e){
+  var c_keyCode = 67,  v_keyCode = 86, x_keyCode = 88, del_keyCode = 46, backSpace_keyCode = 8;
+  //console.log(e.which)
+
+  if (e.which == del_keyCode || e.which == backSpace_keyCode) deleteImage();
+  if ( e.ctrlKey ||  e.metaKey) { //Control or command key
+    switch(e.which){
+      case c_keyCode:
+        copyImage();
+        break;
+      case v_keyCode:
+        pasteImage(e)
+        break;
+      case x_keyCode:
+        copyImage();
+        deleteImage();
+    }
+  }
+}
 
 /*
 * Sends currently selected image object to the back
@@ -83,4 +126,25 @@ function deleteImage(){
   if (image) image.remove()
 }
 
+var copiedImage;
+/*
+* Updates the current copied image to the selected Image
+*/
+function copyImage(){
+  console.log("copy");
+  copiedImage = canvas.getActiveObject();
+}
 
+/*
+* Adds the copied image to the canvas
+*/
+function pasteImage(e){
+  if (!copiedImage) return;
+  copiedImage.clone(function(img){
+    console.log(currentX);
+    console.log(currentY);
+    img.setLeft(currentX-xOffset);
+    img.setTop(currentY-yOffset);
+    canvas.add(img);
+  });
+}
