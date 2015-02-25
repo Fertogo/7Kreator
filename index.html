@@ -72,43 +72,22 @@
         <p class="text-muted" style="margin: 20px">By trujano</p>
       </div>
     </footer>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src='https://code.jquery.com/jquery-1.11.2.min.js'> </script>
     <script src="http://simmons-dev.mit.edu/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 
 
-<script src='https://code.jquery.com/jquery-1.11.2.min.js'> </script>
 
-<script src='http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js'> </script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js'> </script>
 
-<script src='bootstrap-contextmenu.js'> </script>
+  <script src='js/bootstrap-contextmenu.js'> </script>
 
-<script src='7Kreator.js'> </script>
+  <script src='js/7Kreator.js'> </script>
 
-<script>
-//Right click Menu
-$('#drop_zone').contextmenu({
-  target: '#context-menu',
-  onItem: function (context, e) {
-    // switch($(e.target).text().toLowerCase()){
-    //   case "copy": console.log("COPY") break;
-
-
-
-    // }
-  }
-});
-
-/*
-* Sends currently selected image object to the back
-*/
-function back(){
-  console.log("hi")
-}
-
-
-</script>
+  <script>
+    //Right click Menu
+    $('#drop_zone').contextmenu({target: '#context-menu',});
+  </script>
 
 </html>
 
