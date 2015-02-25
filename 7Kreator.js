@@ -54,7 +54,7 @@ $("#submit").click(function(){
 
 $("#back").click(sendToBack);
 $("#front").click(bringToFront);
-
+$("#delete").click(deleteImage);
 
 /*
 * Sends currently selected image object to the back
@@ -73,3 +73,14 @@ function bringToFront(){
   image = canvas.getActiveObject();
   if (image) canvas.bringToFront(image)
 }
+
+/*
+* Removes the selected image from the canvas
+*/
+function deleteImage(){
+  console.log("Delete")
+  image = canvas.getActiveObject();
+  if (image) image.remove()
+}
+
+
