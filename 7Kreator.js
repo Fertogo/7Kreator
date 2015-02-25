@@ -44,7 +44,7 @@ function download(url,name){
 }
 function downloadFabric(canvas,name){
   //  convert the canvas to a data url and download it.
-  download(canvas.toDataURL(),name+'.png');
+  download(canvas.toDataURL({multiplier: 4}),name+'.png' );
 }
 
 $("#submit").click(function(){
