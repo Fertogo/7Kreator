@@ -5,7 +5,8 @@ $(document).ready(function(){
 });
 
 currentX = 0; currentY = 0;
-xOffset = -50; yOffset = 220;
+X_OFFSET = -50; Y_OFFSET = 220;
+X_MAX = 1500; Y_MAX = 450
 
 // Keep track of cursor position
 $(document).mousemove(function (e) {
@@ -24,10 +25,18 @@ function handleFileSelect(evt) {
   reader.onloadend = function () {
       console.log(reader.result)
       fabric.Image.fromURL(reader.result, function(oImg) {
-        oImg.setLeft(evt.pageX-xOffset);
-        oImg.setTop(evt.pageY-yOffset);
+
+        var size = oImg.getOriginalSize()
+
+        if (size.width > X_MAX) oImg.scale((1/(size.width/X_MAX)))
+        if (size.height > Y_MAX) oImg.scale((1/(size.height/Y_MAX)))
+
+        oImg.setLeft(evt.pageX-X_OFFSET);
+        oImg.setTop(evt.pageY-Y_OFFSET);
         canvas.add(oImg);
-        canvas.sendBackwards(oImg);
+        // canvas.sendBackwards(oImg);
+        canvas.bringToFront(oImg);
+
       });
   }
   var file = files[0]
@@ -143,8 +152,8 @@ function pasteImage(e){
   copiedImage.clone(function(img){
     console.log(currentX);
     console.log(currentY);
-    img.setLeft(currentX-xOffset);
-    img.setTop(currentY-yOffset);
+    img.setLeft(currentX-X_OFFSET);
+    img.setTop(currentY-Y_OFFSET);
     canvas.add(img);
   });
 }
