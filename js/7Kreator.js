@@ -28,8 +28,8 @@ function handleFileSelect(evt) {
 
         var size = oImg.getOriginalSize()
 
-        if (size.width > X_MAX) oImg.scale((1/(size.width/X_MAX)))
-        if (size.height > Y_MAX) oImg.scale((1/(size.height/Y_MAX)))
+        if (size.width > X_MAX) oImg.scale((1/(size.width/X_MAX)));
+        if (size.height > Y_MAX) oImg.scale((1/(size.height/Y_MAX)));
 
         oImg.setLeft(evt.pageX-X_OFFSET);
         oImg.setTop(evt.pageY-Y_OFFSET);
@@ -68,6 +68,7 @@ function downloadFabric(canvas,name){
 }
 
 $("#submit").click(function(){
+    canvas.deactivateAll().renderAll(); //Deselect All
     downloadFabric(canvas,'test');
 });
 
